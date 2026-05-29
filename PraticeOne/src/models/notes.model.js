@@ -2,7 +2,7 @@ import {Schema,model} from "mongoose"
 
 const schema = Schema({
     title:String,
-    descripction:String
+    description:String
 })
 
 
