@@ -25,4 +25,17 @@ router.post("/",async(req,res)=>{
     }
 })
 
+router.get("/",async(req,res)=>{
+    try {
+        const notes = await Note.find()
+        if(!notes){
+            return res.status(500).json({error:"something went wrong"})
+        }
+        return res.status(200).json({message:"notes fetched successfully",notes})
+    } catch (error) {
+        return res.status(500).json({error:"something went wrong",error})
+        
+    }
+})
+
 export default router
