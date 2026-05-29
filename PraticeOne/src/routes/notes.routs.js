@@ -38,4 +38,24 @@ router.get("/",async(req,res)=>{
     }
 })
 
+router.patch("/:id",async(req,res)=>{
+    const {id} = req.params;
+    const {title,description} = req.body;
+    if(!id){
+        return res.status(403,{message:"Id is needed."})
+    }
+    if(!title||!description){
+        return res.status(403).json({message:"Title and description is needed."})
+    }
+
+    const isNotePresent = await Note.findOne({_id:id});
+    if(!isNotePresent){
+        return res.status(404).json({message:"Note is not found."})
+    }
+    const updateNote = await Note.findOneAndUpdate({_id:id},{title,description})
+
+    res.status(200).json({message:"Note is Updated Successfully.",updateNote})
+
+})
+
 export default router
