@@ -31,3 +31,26 @@ export const getAllNotes = async(req,res)=>{
         
     }
 }
+
+// updateNote controller 
+
+
+export const updateNote = async(req,res)=>{
+    const {id} = req.params;
+    const {title,description} = req.body;
+    if(!id){
+        return res.status(403,{message:"Id is needed."})
+    }
+    if(!title||!description){
+        return res.status(403).json({message:"Title and description is needed."})
+    }
+    try {
+        const note = await Note.findByIdAndUpdate(id,{title,description},{new:true})
+        if(!note){
+            return res.status(500).json({error:"something went wrong"})
+        }
+        return res.status(201).json({message:"note updated successfully",note})
+    } catch (error) {
+        return res.status(500).json({error:"something went wrong",error})
+    }
+}
