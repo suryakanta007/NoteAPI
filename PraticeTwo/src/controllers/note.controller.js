@@ -54,3 +54,21 @@ export const updateNote = async(req,res)=>{
         return res.status(500).json({error:"something went wrong",error})
     }
 }
+
+// delete note controller
+
+export const deleteNote = async(req,res)=>{
+    const {id} = req.params;
+    if(!id){
+        return res.status(403,{message:"Id is needed."})
+    }
+    try {
+        const note = await Note.findByIdAndDelete(id)
+        if(!note){
+            return res.status(500).json({error:"something went wrong"})
+        }
+        return res.status(201).json({message:"note deleted successfully",note})
+    } catch (error) {
+        return res.status(500).json({error:"something went wrong",error})
+    }
+}
