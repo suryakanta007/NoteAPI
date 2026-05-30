@@ -16,3 +16,18 @@ export const createNote = async(req,res)=>{
         
     }
 }
+
+// get all notes controller
+
+export const getAllNotes = async(req,res)=>{
+    try {
+        const notes = await Note.find()
+        if(!notes){
+            return res.status(500).json({error:"something went wrong"})
+        }
+        return res.status(201).json({message:"note created successfully",notes})
+    } catch (error) {
+        return res.status(500).json({error:"something went wrong",error})
+        
+    }
+}

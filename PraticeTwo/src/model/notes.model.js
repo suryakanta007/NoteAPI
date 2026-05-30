@@ -5,7 +5,7 @@ const noteSchema = new Schema({
     title:{
         type:String,
         required:true,
-        unquie:true
+        unique: true
     },
     description:{
         type:String,
