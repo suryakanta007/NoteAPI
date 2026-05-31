@@ -65,7 +65,7 @@ export const deleteNote = async(req,res)=>{
     try {
         const note = await Note.findByIdAndDelete(id)
         if(!note){
-            return res.status(500).json({error:"something went wrong"})
+            return res.status(500).json({error:"Does not exist the note"})
         }
         return res.status(201).json({message:"note deleted successfully",note})
     } catch (error) {
